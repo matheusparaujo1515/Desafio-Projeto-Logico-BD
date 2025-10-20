@@ -1,0 +1,45 @@
+erDiagram
+    ACCOUNT ||--o{ PAYMENT_METHOD : possui
+    ACCOUNT ||--o{ "ORDER" : realiza
+    "ORDER" }o--|| PAYMENT_METHOD : usa
+    "ORDER" ||--o{ DELIVERY : gera
+
+    ACCOUNT {
+      uuid id PK
+      text name
+      text email
+      enum person_type  "PF|PJ"
+      text cpf          "PF"
+      text cnpj         "PJ"
+      timestamptz created_at
+      timestamptz updated_at
+    }
+
+    PAYMENT_METHOD {
+      uuid id PK
+      uuid account_id FK
+      enum method_type  "CREDIT_CARD|PIX|BOLETO"
+      text label
+      jsonb details
+      bool is_default
+      timestamptz created_at
+    }
+
+    "ORDER" {
+      uuid id PK
+      uuid account_id FK
+      uuid payment_method_id FK
+      numeric total_amount
+      timestamptz created_at
+    }
+
+    DELIVERY {
+      uuid id PK
+      uuid order_id FK
+      enum status "CREATED|PACKED|SHIPPED|IN_TRANSIT|DELIVERED|RETURNED|CANCELED"
+      text tracking_code
+      text carrier
+      timestamptz shipped_at
+      timestamptz delivered_at
+      timestamptz created_at
+    }

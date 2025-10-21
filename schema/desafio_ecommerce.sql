@@ -1,6 +1,5 @@
 -- ===============================================================
 -- DESAFIO DE PROJETO – ESQUEMA DE E-COMMERCE (PF/PJ, PAGAMENTOS, ENTREGAS)
--- Autor: Gilm
 -- Banco: PostgreSQL 13+
 -- ===============================================================
 
@@ -141,3 +140,4 @@ BEFORE INSERT OR UPDATE OF payment_method_id, account_id
 ON public.orders
 FOR EACH ROW
 EXECUTE FUNCTION public.trg_orders_payment_belongs();
+
